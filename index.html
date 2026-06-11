@@ -1065,6 +1065,39 @@
     }
 
 }
+        @media (max-width: 991px) {
+    /* 1. Ajustar el header para que no se desborde */
+    header {
+        padding: 15px 5%; /* Reducimos el padding lateral del 8% al 5% */
+        justify-content: space-between;
+    }
+
+    /* 2. Asegurar que el menú ocupe el ancho total */
+    nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%; /* Forzamos el ancho al 100% de la pantalla */
+        background: rgba(255, 255, 255, 0.98);
+        flex-direction: column;
+        padding: 10px 0;
+        display: none; /* Mejor controlarlo con display en lugar de max-height */
+        box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+    }
+
+    /* 3. Clase para mostrar el menú al hacer clic */
+    nav.is-open {
+        display: flex !important;
+    }
+
+    /* 4. Asegurar que los links dentro del menú se vean bien */
+    nav a {
+        padding: 15px 20px;
+        text-align: center;
+        width: 100%;
+        border-bottom: 1px solid rgba(217, 139, 159, 0.1);
+    }
+}
     </style>
 </head>
 

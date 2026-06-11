@@ -485,6 +485,21 @@
             transition: transform 0.4s var(--transition-smooth), box-shadow 0.4s var(--transition-smooth);
             display: flex;
             flex-direction: column;
+            @media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: 1fr; /* Fuerza a que los productos ocupen 1 columna completa */
+        padding: 0 5%;
+    }
+    
+    .product-card {
+        margin-bottom: 20px; /* Separación entre productos cuando se apilan */
+    }
+
+    .product-info p {
+        max-width: 100% !important; /* Permite que el texto se expanda en pantallas pequeñas */
+        text-align: center;
+    }
+}
         }
 
        .product-card:hover{

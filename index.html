@@ -768,29 +768,28 @@
 
         .copyright-text { font-size: 12px; color: #777; border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 30px; font-weight: 300; margin-top: 60px; }
 
-        /* ==========================================
-           SISTEMA DE MEDIA QUERIES (RESPONSIVE)
-           ========================================== */
-        @media (max-width: 991px) {
-            header { padding: 15px 5%; }
-            
-            .menu-toggle { display: block; }
-            
+      /* ==========================================
+   CONFIGURACIÓN RESPONSIVE UNIFICADA
+   ========================================== */
+
+@media (max-width: 991px) {
+    /* Header y Menú */
+    header { padding: 15px 5%; }
+    .menu-toggle { display: block; }
+    
     nav {
         position: absolute;
         top: 100%;
         left: 0;
-        /* ESTAS DOS LÍNEAS CORRIGEN EL DESBORDAMIENTO */
-        width: 100%; 
-        box-sizing: border-box; 
-        
+        width: 100%;
+        box-sizing: border-box;
         background: rgba(255, 255, 255, 0.98);
         border-bottom: 1px solid var(--color-border);
         flex-direction: column;
         gap: 0;
         padding: 10px 0;
         max-height: 0;
-        overflow: hidden; /* Esto oculta cualquier cosa que intente salirse */
+        overflow: hidden;
         opacity: 0;
         transition: max-height 0.4s ease, opacity 0.3s ease;
         pointer-events: none;
@@ -807,300 +806,77 @@
         padding: 15px 5%;
         display: block;
         width: 100%;
-        /* IMPORTANTE: Agregar box-sizing aquí también */
-        box-sizing: border-box; 
+        box-sizing: border-box;
         border-bottom: 1px solid rgba(217, 139, 159, 0.03);
     }
     nav a::after { display: none; }
-}
 
-            .hero {
-                grid-template-columns: 1fr;
-                padding-top: 110px;
-                gap: 30px;
-                text-align: center;
-            }
-            .hero-content { max-width: 100%; }
-            .hero-content h2 { font-size: 38px;
-            background:linear-gradient(
-            90deg,
-            #b56b7c,
-            #d98b9f,
-            #b56b7c
-            );
-
-            background-size:200% auto;
-            background-clip:text;
-            -webkit-background-clip:text;
-            -webkit-text-fill-color:transparent;
-
-            animation:luxuryText 8s linear infinite; }
-            .hero-img-box { height: 360px;  justify-content:center;
-                align-items:center;
-                display:flex;} /* Altura controlada para evitar colapso plano */
-
-            .about {
-                grid-template-columns: 1fr;
-                gap: 40px;
-                padding: 80px 5%;
-            }
-            .about-img-box { 
-                height: 360px; grid-row: 2; 
-               
-            }
-            .about-text h2 { font-size: 32px; text-align: center; }
-
-            #productos { padding: 80px 5%; }
-            .section-title { font-size: 34px; }
-    
-
-        @media (max-width: 480px) {
-            .brand-title { font-size: 20px; }
-            .brand-subtitle { font-size: 9px; }
-            .logo-img { height: 42px; width: 42px; }
-            .hero-content h2 { font-size: 32px; }
-            .hero-img-box { height: 280px; }
-            .about-img-box { height: 280px; }
-            .modal-box { padding: 30px 18px; }
-        }
-     .hero-content h2{
-    animation:heroTitle 1.5s ease forwards;
-}
-
-.hero-content p{
-    opacity:0;
-    animation:heroText 1.5s .4s ease forwards;
-    
-}
-
-.btn-luxury{
-    opacity:0;
-    animation:heroBtn 1.5s .8s ease forwards;
-}
-
-@keyframes heroTitle{
-    from{
-        opacity:0;
-        transform:
-        translateY(60px)
-        scale(.95);
-    }
-    to{
-        opacity:1;
-        transform:
-        translateY(0)
-        scale(1);
-    }
-}
-
-@keyframes heroText{
-    from{
-        opacity:0;
-        transform:translateY(40px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-@keyframes heroBtn{
-    from{
-        opacity:0;
-        transform:translateY(40px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}  
-
-.luxury-particles{
-    position:absolute;
-    inset:0;
-    overflow:hidden;
-    pointer-events:none;
-}
-
-.luxury-particles span{
-    position:absolute;
-    width:12px;
-    height:12px;
-    border-radius:50%;
-    background:rgba(217,139,159,.25);
-    animation:particleMove 12s linear infinite;
-}
-
-.luxury-particles span:nth-child(1){left:5%;animation-delay:0s;}
-.luxury-particles span:nth-child(2){left:25%;animation-delay:2s;}
-.luxury-particles span:nth-child(3){left:45%;animation-delay:4s;}
-.luxury-particles span:nth-child(4){left:65%;animation-delay:6s;}
-.luxury-particles span:nth-child(5){left:85%;animation-delay:8s;}
-.luxury-particles span:nth-child(6){left:95%;animation-delay:10s;}
-
-@keyframes particleMove{
-
-    from{
-        transform:
-        translateY(500px)
-        scale(.2);
-        opacity:0;
-    }
-
-    20%{
-        opacity:1;
-    }
-
-    to{
-        transform:
-        translateY(-400px)
-        scale(1.2);
-        opacity:0;
-    }
-
-}
- @keyframes heroTitle{
-
-    from{
-        opacity:0;
-        transform:
-        translateY(80px)
-        scale(.9);
-    }
-
-    to{
-        opacity:1;
-        transform:
-        translateY(0)
-        scale(1);
-    }
-
-}
-
-@keyframes heroText{
-
-    from{
-        opacity:0;
-        transform:translateY(40px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
-}
-
-@keyframes heroBtn{
-
-    from{
-        opacity:0;
-        transform:translateY(40px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
-}
-    .reveal{
-
-    opacity:0;
-
-    transform:
-    translateY(60px);
-
-    transition:
-    all 1s ease;
-
-}
-
-.reveal.active{
-
-    opacity:1;
-
-    transform:
-    translateY(0);
-
-}
-    @media (max-width:768px){
-
-    .hero-img-box{
-
-        width:100%;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-
-        margin:0 auto;
-
-        overflow:visible;
-    }
-
-    .hero-image-wrapper{
-
-        width:100%;
-
-        display:flex;
-        justify-content:center;
-        align-items:center;
-    }
-
-    .hero-main-image{
-
-        max-width:90vw;
-        width:100%;
-
-        margin:auto;
-
-        display:block;
-    }
-
-}
-    @keyframes luxuryText{
-
-    from{
-        background-position:0% center;
-    }
-
-    to{
-        background-position:200% center;
-    }
-
-}
-        @media (max-width: 991px) {
-    /* 1. Ajustar el header para que no se desborde */
-    header {
-        padding: 15px 5%; /* Reducimos el padding lateral del 8% al 5% */
-        justify-content: space-between;
-    }
-
-    /* 2. Asegurar que el menú ocupe el ancho total */
-    nav {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%; /* Forzamos el ancho al 100% de la pantalla */
-        background: rgba(255, 255, 255, 0.98);
-        flex-direction: column;
-        padding: 10px 0;
-        display: none; /* Mejor controlarlo con display en lugar de max-height */
-        box-shadow: 0 10px 15px rgba(0,0,0,0.05);
-    }
-
-    /* 3. Clase para mostrar el menú al hacer clic */
-    nav.is-open {
-        display: flex !important;
-    }
-
-    /* 4. Asegurar que los links dentro del menú se vean bien */
-    nav a {
-        padding: 15px 20px;
+    /* Hero Responsive */
+    .hero {
+        grid-template-columns: 1fr;
+        padding-top: 110px;
+        gap: 30px;
         text-align: center;
-        width: 100%;
-        border-bottom: 1px solid rgba(217, 139, 159, 0.1);
+        overflow: hidden;
     }
+    .hero-content { max-width: 100%; }
+    .hero-content h2 { 
+        font-size: 38px;
+        background: linear-gradient(90deg, #b56b7c, #d98b9f, #b56b7c);
+        background-size: 200% auto;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: luxuryText 8s linear infinite; 
+    }
+    .hero-img-box { height: 360px; justify-content: center; align-items: center; display: flex; overflow: hidden; }
+
+    /* About y Productos */
+    .about { grid-template-columns: 1fr; gap: 40px; padding: 80px 5%; }
+    .about-img-box { height: 360px; grid-row: 2; }
+    .about-text h2 { font-size: 32px; text-align: center; }
+    #productos { padding: 80px 5%; }
+    .section-title { font-size: 34px; }
+}
+
+@media (max-width: 768px) {
+    .hero-img-box { width: 100%; display: flex; justify-content: center; align-items: center; margin: 0 auto; overflow: visible; }
+    .hero-image-wrapper { width: 100%; display: flex; justify-content: center; align-items: center; }
+    .hero-main-image { max-width: 90vw; width: 100%; margin: auto; display: block; }
+}
+
+@media (max-width: 480px) {
+    .brand-title { font-size: 20px; }
+    .brand-subtitle { font-size: 9px; }
+    .logo-img { height: 42px; width: 42px; }
+    .hero-content h2 { font-size: 32px; }
+    .hero-img-box { height: 280px; }
+    .about-img-box { height: 280px; }
+    .modal-box { padding: 30px 18px; }
+}
+
+/* Animaciones y Clases Globales */
+.reveal { opacity: 0; transform: translateY(60px); transition: all 1s ease; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+@keyframes luxuryText {
+    from { background-position: 0% center; }
+    to { background-position: 200% center; }
+}
+
+@keyframes heroTitle {
+    from { opacity: 0; transform: translateY(80px) scale(.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes heroText {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroBtn {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
 }
     </style>
 </head>

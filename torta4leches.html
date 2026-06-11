@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torta 4 Leches | Algo Dulce Alta Repostería</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        /* ==========================================
+           VARIABLES Y CONFIGURACIÓN PREMIUM 
+           ========================================== */
+        :root {
+            --color-primary: #d98b9f;      /* Rosa Signature */
+            --color-primary-dark: #c57689; /* Rosa Intenso */
+            --color-bg-light: #fff8f9;     /* Fondo suave */
+            --color-dark: #2c2527;         /* Texto principal */
+            --color-muted: #6b5e61;         /* Texto secundario */
+            --color-border: #f6dce3;       /* Bordes delicados */
+            --transition-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+            --transition-elastic: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            color: var(--color-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        body.loading {
+            overflow: hidden;
+        }
+
+        h1, h2, h3, h4, .brand-title {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* ==========================================
+           PRELOADER REFINADO
+           ========================================== */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.6s var(--transition-smooth), visibility 0.6s;
+            will-change: opacity, visibility;
+        }
+
+        .preloader-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .preloader-spinner {
+            width: 130px;
+            height: 130px;
+            border: 3px solid rgba(217, 139, 159, 0.12);
+            border-top: 3px solid var(--color-primary);
+            border-radius: 50%;
+            animation: preloader-spin 1s linear infinite;
+            position: absolute;
+        }
+
+        .preloader-logo {
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 10px 25px rgba(217, 139, 159, 0.15);
+            animation: pulseLogo 2s infinite ease-in-out;
+            z-index: 2;
+        }
+
+        .preloader-text {
+            margin-top: 25px;
+            font-family: 'Playfair Display', serif;
+            color: var(--color-primary);
+            font-size: 22px;
+            letter-spacing: 3px;
+            font-style: italic;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInText 1s forwards 0.3s var(--transition-smooth);
+        }
+
+        @keyframes preloader-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseLogo {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.03); filter: brightness(1.02); }
+        }
+
+        @keyframes fadeInText {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==========================================
+           CABECERA EFICIENTE Y MARCADOR ACTIVO
+           ========================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(217, 139, 159, 0.08);
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--color-border);
+        }
+
+        .brand-title {
+            font-size: 24px;
+            color: var(--color-dark);
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .brand-subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-size: 11px;
+            color: var(--color-primary);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        nav {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--color-dark);
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--color-primary);
+            transition: width 0.3s var(--transition-smooth);
+        }
+
+        nav a:hover { color: var(--color-primary); }
+        nav a:hover::after { width: 100%; }
+
+        nav a.active-link {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+        nav a.active-link::after {
+            width: 100%;
+            height: 2px;
+        }
+
+        .btn-back-nav {
+            font-size: 13px;
+            background: var(--color-bg-light);
+            color: var(--color-primary);
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--color-border);
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .btn-back-nav:hover {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 22px;
+            color: var(--color-dark);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .menu-toggle:hover { color: var(--color-primary); }
+
+        /* ==========================================
+           EFECTOS REVEAL
+           ========================================== */
+        .reveal {
+            opacity: 0;
+            filter: blur(12px) brightness(0.9);
+            transform: translateY(60px) scale(0.97);
+            transition: transform 0.9s var(--transition-smooth), opacity 0.9s var(--transition-smooth), filter 0.9s var(--transition-smooth);
+            will-change: transform, opacity, filter;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            filter: blur(0) brightness(1);
+            transform: translateY(0) scale(1);
+        }
+
+        /* ==========================================
+           VISTA DETALLE DE PRODUCTO (HERO)
+           ========================================== */
+        .product-detail-section {
+            min-height: 90vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 140px 8% 60px 8%;
+            background: linear-gradient(135deg, #ffffff 0%, var(--color-bg-light) 100%);
+            gap: 60px;
+        }
+
+        .detail-img-box {
+            position: relative;
+            width: 100%;
+            height: 550px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 55px rgba(217, 139, 159, 0.15);
+        }
+
+        .detail-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s var(--transition-smooth);
+        }
+        .detail-img-box:hover img { transform: scale(1.04); }
+
+        .detail-content h2 {
+            font-size: 48px;
+            line-height: 1.2;
+            color: var(--color-dark);
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+        .detail-content .product-tag {
+            display: inline-block;
+            font-size: 15px; /* Modificado: Un poco más grande */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--color-primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .detail-content .price-tag {
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 25px;
+        }
+
+        .detail-content p {
+            font-size: 15px;
+            color: var(--color-muted);
+            margin-bottom: 30px;
+            font-weight: 300;
+            text-align: justify;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 35px;
+            border-top: 1px solid var(--color-border);
+            padding-top: 25px;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--color-dark);
+        }
+
+        .spec-item i {
+            color: var(--color-primary);
+            font-size: 16px;
+        }
+
+        .actions-row {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* Botón de Compra Modificado (Carrito Premium) */
+        .btn-luxury-cart {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 35px;
+            background-color: #ffffff;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+            text-decoration: none;
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s var(--transition-smooth);
+            box-shadow: 0 10px 25px rgba(217, 139, 159, 0.1);
+            cursor: pointer;
+        }
+
+        .btn-luxury-cart i {
+            color: var(--color-primary);
+            transition: color 0.3s ease;
+        }
+
+        .btn-luxury-cart:hover {
+            background-color: var(--color-primary);
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(217, 139, 159, 0.3);
+        }
+
+        .btn-luxury-cart:hover i {
+            color: #ffffff;
+        }
+
+        /* ==========================================
+           SECCIÓN DE RESEÑAS PROFESIONALES DINAAMICAS
+           ========================================== */
+        .carousel-container-section {
+            padding: 80px 8%;
+            background-color: var(--color-bg-light);
+            overflow: hidden;
+        }
+
+        .carousel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .carousel-header h3 {
+            font-size: 32px;
+            font-weight: 400;
+        }
+
+        .carousel-nav-btns {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-nav-carousel {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid var(--color-border);
+            background: #ffffff;
+            color: var(--color-dark);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .btn-nav-carousel:hover {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        .carousel-wrapper {
+            overflow-x: auto;
+            scrollbar-width: none;
+            display: flex;
+            gap: 30px;
+            padding: 15px 5px;
+            scroll-behavior: smooth;
+        }
+
+        .carousel-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Tarjetas de Reseña Estilo Profesional */
+        .review-card {
+            flex: 0 0 calc(25% - 23px);
+            min-width: 280px;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 30px 25px;
+            box-shadow: 0 10px 30px rgba(217, 139, 159, 0.05);
+            border: 1px solid rgba(217, 139, 159, 0.1);
+            transition: transform 0.4s var(--transition-smooth), box-shadow 0.4s var(--transition-smooth), border-color 0.4s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            min-height: 260px;
+        }
+
+        .review-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(217, 139, 159, 0.15);
+            border-color: var(--color-primary);
+        }
+
+        .review-stars {
+            color: #ffc107;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .review-text-container {
+            position: relative;
+            flex-grow: 1;
+            height: 100px;
+            overflow: hidden;
+        }
+
+        .review-text {
+            font-size: 14px;
+            color: var(--color-muted);
+            font-style: italic;
+            line-height: 1.5;
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .review-text.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .review-author {
+            margin-top: 20px;
+            border-top: 1px solid #fcf0f2;
+            padding-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .review-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--color-border);
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .author-info h5 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-dark);
+        }
+
+        .author-info p {
+            font-size: 11px;
+            color: var(--color-primary);
+        }
+
+        /* ==========================================
+           MODAL INTERACTIVO DE VENTAS (Modificado)
+           ========================================== */
+        .modal-overlay {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(44, 37, 39, 0); 
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            pointer-events: none; 
+            transition: background-color 0.5s var(--transition-smooth), backdrop-filter 0.5s var(--transition-smooth);
+        }
+
+        .modal-overlay.is-active {
+            background-color: rgba(44, 37, 39, 0.45);
+            backdrop-filter: blur(10px);
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            background-color: #ffffff;
+            padding: 35px 25px;
+            border-radius: 24px;
+            width: 92%;
+            max-width: 440px;
+            box-shadow: 0 25px 60px rgba(44, 37, 39, 0.15);
+            position: relative;
+            overflow: hidden; 
+            opacity: 0;
+            transform: translateY(50px) scale(0.93);
+            filter: blur(4px);
+            transition: transform 0.55s var(--transition-elastic), opacity 0.45s var(--transition-smooth), filter 0.45s var(--transition-smooth);
+        }
+
+        .modal-overlay.is-active .modal-box { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+
+        .modal-steps-container {
+            width: 100%;
+            position: relative;
+        }
+
+        .btn-close { position: absolute; top: 20px; right: 25px; color: #ccc; font-size: 24px; cursor: pointer; transition: color 0.2s; z-index: 10; }
+        .btn-close:hover { color: var(--color-primary); }
+
+        .modal-box-title { font-size: 24px; color: var(--color-dark); margin-bottom: 4px; font-weight: 400; }
+        .modal-box-subtitle { font-size: 13px; color: var(--color-muted); margin-bottom: 20px; font-weight: 300; }
+
+        .form-group { margin-bottom: 16px; text-align: left; }
+        .form-group label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--color-muted); margin-bottom: 6px; font-weight: 500; }
+
+        .select-luxury { width: 100%; padding: 12px; border: 1px solid var(--color-border); border-radius: 12px; background-color: #ffffff; font-family: 'Poppins', sans-serif; font-size: 13px; outline: none; }
+        
+        .counter-row { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 15px 0; }
+        .btn-counter { 
+            width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--color-border); background: transparent; color: var(--color-dark); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.25s ease;
+        }
+        .btn-counter:hover { background-color: var(--color-primary); border-color: var(--color-primary); color: #ffffff; transform: scale(1.05); }
+        
+        .total-display-box { background: var(--color-bg-light); padding: 14px; border-radius: 14px; font-size: 18px; font-weight: 600; color: var(--color-dark); margin-bottom: 20px; border: 1px dashed var(--color-primary); text-align: center; }
+
+        .btn-modal-action {
+            width: 100%; padding: 14px; border: none; border-radius: 30px; font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px;
+        }
+        .btn-modal-primary { background: var(--color-dark); color: #ffffff; }
+        .btn-modal-primary:hover { background: var(--color-primary); }
+
+        /* ==========================================
+           FOOTER
+           ========================================== */
+        .footer-lux { background-color: #1f1a1b; color: #ffffff; padding: 60px 8% 40px 8%; text-align: center; }
+        .copyright-text { font-size: 12px; color: #777; border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 30px; font-weight: 300; }
+
+        /* ==========================================
+           SISTEMA RESPONSIVE
+           ========================================== */
+        @media (max-width: 991px) {
+            header { padding: 15px 5%; }
+            .menu-toggle { display: block; }
+            nav {
+                position: absolute; top: 100%; left: 0; width: 100%; background: rgba(255, 255, 255, 0.98); border-bottom: 1px solid var(--color-border); flex-direction: column; gap: 0; padding: 10px 0; max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.4s ease, opacity 0.3s ease; pointer-events: none; box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+            }
+            nav.is-open { max-height: 350px; opacity: 1; pointer-events: auto; }
+            nav a { padding: 15px 5%; display: block; width: 100%; border-bottom: 1px solid rgba(217, 139, 159, 0.03); }
+            nav a::after { display: none; }
+            .product-detail-section { grid-template-columns: 1fr; padding-top: 110px; gap: 40px; text-align: center; }
+            .detail-img-box { height: 380px; }
+            .specs-grid { justify-items: center; }
+            .actions-row { justify-content: center; flex-direction: column; width: 100%; }
+            .actions-row .btn-luxury-cart { width: 100%; justify-content: center; }
+            .review-card { flex: 0 0 100%; }
+        }
+        .input-luxury{
+    width:100%;
+    padding:12px;
+    border:1px solid var(--color-border);
+    border-radius:12px;
+    outline:none;
+    font-family:'Poppins',sans-serif;
+    font-size:13px;
+}
+
+.input-luxury:focus{
+    border-color:var(--color-primary);
+}
+
+.btn-modal-whatsapp{
+    background:#25D366;
+    color:#fff;
+}
+
+.btn-modal-whatsapp:hover{
+    background:#1ea952;
+}
+
+.btn-modal-whatsapp:disabled{
+    background:#bfbfbf;
+    cursor:not-allowed;
+}
+
+.qr-placeholder-frame{
+    width:120px;
+    height:120px;
+    border:2px dashed var(--color-primary);
+    border-radius:15px;
+    margin:15px auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:var(--color-primary);
+    font-size:50px;
+}
+    </style>
+</head>
+
+<body class="loading">
+
+    <div id="preloader">
+        <div class="preloader-container">
+            <div class="preloader-spinner"></div>
+            <img src="../img/logo.jpeg" alt="Logo Boutique" class="preloader-logo" onerror="this.src='https://placehold.co/150'">
+        </div>
+        <div class="preloader-text">Algo Dulce</div>
+    </div>
+
+    <header>
+        <div class="logo-box">
+            <img src="../img/logo.jpeg" alt="Logo de la tienda" class="logo-img" onerror="this.src='https://placehold.co/150'">
+            <div>
+                <h1 class="brand-title">Algo Dulce</h1>
+                <p class="brand-subtitle">By Madian Gutierrez</p>
+            </div>
+        </div>
+        <div class="menu-toggle" id="mobileMenuBtn" onclick="toggleMenuResponsive()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <nav id="navbarLinks">
+            <a href="../index.html#inicio">Inicio</a>
+            <a href="../index.html#nosotros">Nosotros</a>
+            <a href="../index.html#productos" class="active-link">Catálogo</a>
+            <a href="../index.html#contacto">Contacto</a>
+            <a href="../index.html" class="btn-back-nav"><i class="fa-solid fa-arrow-left"></i> Volver</a>
+        </nav>
+    </header>
+
+    <section class="product-detail-section">
+        <div class="detail-img-box reveal active">
+            <img src="../img/torta4leches.jpeg" alt="Torta 4 Leches Artesanal" onerror="this.src='https://placehold.co/600x550'">
+        </div>
+        <div class="detail-content reveal active">
+            <span class="product-tag">Alta Repostería Artesanal</span>
+            <h2>Torta 4 Leches</h2>
+            <div class="price-tag">Desde 120 Bs</div>
+            <p>Nuestra emblemática Torta 4 Leches redefine el concepto de la repostería tradicional cruceña. Elaborada sobre un bizcocho genovés sumamente aireado y sutil, se baña minuciosamente en nuestra receta ultra secreta de cuatro leches premium equilibradas para evitar el exceso de dulce, coronándose finalmente con un terso e impecable merengue italiano flameado.</p>
+            
+            <div class="specs-grid">
+                <div class="spec-item"><i class="fa-solid fa-layer-group"></i> <span>Estructura ultra esponjosa</span></div>
+                <div class="spec-item"><i class="fa-solid fa-droplet"></i> <span>Humedad perfecta y equilibrada</span></div>
+                <div class="spec-item"><i class="fa-solid fa-seedling"></i> <span>100% libre de aditivos químicos</span></div>
+                <div class="spec-item"><i class="fa-solid fa-cake-candles"></i> <span>Ideal para cualquier celebración</span></div>
+            </div>
+
+            <div class="actions-row">
+                <button class="btn-luxury-cart" onclick="abrirConfiguracionPedido('Torta 4 Leches', 'multi-4leches')">
+                    <i class="fa-solid fa-cart-shopping"></i> Comprar
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="carousel-container-section reveal active">
+    <div class="carousel-header">
+        <h3>Experiencias de nuestros clientes</h3>
+
+        <div class="carousel-nav-btns">
+            <button class="btn-nav-carousel" onclick="desplazarCarrusel('izquierda')">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <button class="btn-nav-carousel" onclick="desplazarCarrusel('derecha')">
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="carousel-wrapper" id="premiumCarousel">
+
+        <div class="review-card">
+            <div class="review-stars"></div>
+
+            <div class="review-text-container">
+                <p class="review-text active"></p>
+            </div>
+
+            <div class="review-author">
+                <div class="review-avatar">MV</div>
+
+                <div class="author-info">
+                    <h5>María Vaca</h5>
+                    <p>Cliente Verificado</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-card">
+            <div class="review-stars"></div>
+
+            <div class="review-text-container">
+                <p class="review-text active"></p>
+            </div>
+
+            <div class="review-author">
+                <div class="review-avatar">AA</div>
+
+                <div class="author-info">
+                    <h5>Andrés Antelo</h5>
+                    <p>Cliente Verificado</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-card">
+            <div class="review-stars"></div>
+
+            <div class="review-text-container">
+                <p class="review-text active"></p>
+            </div>
+
+            <div class="review-author">
+                <div class="review-avatar">FR</div>
+
+                <div class="author-info">
+                    <h5>Fabiana Rojas</h5>
+                    <p>Cliente Verificado</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-card">
+            <div class="review-stars"></div>
+
+            <div class="review-text-container">
+                <p class="review-text active"></p>
+            </div>
+
+            <div class="review-author">
+                <div class="review-avatar">CS</div>
+
+                <div class="author-info">
+                    <h5>Carlos Suárez</h5>
+                    <p>Cliente Verificado</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+    <footer class="footer-lux">
+        <p class="copyright-text">&copy; 2026 Algo Dulce | Alta Pastelería Artesanal. Zona Urubó, Santa Cruz, Bolivia. Todos los derechos reservados.</p>
+    </footer>
+
+<div class="modal-overlay" id="luxuryModalCheckout">
+        <div class="modal-box">
+            <span class="btn-close" onclick="cerrarConfiguracionPedido()">&times;</span>
+            
+            <div class="modal-steps-container">
+                <div class="modal-steps-slider" id="modalStepsSlider">
+                    
+                    <div class="modal-step-pane pane-1">
+                        <h3 class="modal-box-title">Torta 4 Leches</h3>
+                        <p class="modal-box-subtitle">Personaliza las especificaciones de tu pedido</p>
+                        
+                        <div class="form-group">
+                            <label>Seleccionar Tamaño</label>
+                            <select class="select-luxury" id="selectVarianteProducto" onchange="calcularPreciosDinamicos()">
+                                <option value="120">10 Porciones - 120 Bs</option>
+                                <option value="220">20 Porciones - 220 Bs</option>
+                                <option value="280">30 Porciones - 280 Bs</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cantidad de Unidades</label>
+                            <div class="counter-row">
+                                <button class="btn-counter" onclick="modificarContador(-1)"><i class="fa-solid fa-minus"></i></button>
+                                <span id="lblContadorUnidades" style="font-size: 18px; font-weight: 600; min-width: 25px; text-align: center;">1</span>
+                                <button class="btn-counter" onclick="modificarContador(1)"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="total-display-box">
+                            Total: <span id="txtModalPrecioCalculado">120</span> Bs
+                        </div>
+
+                        <button class="btn-modal-action btn-modal-primary" onclick="desplazarSiguientePaso()">
+                            Continuar al Pago <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="modal-step-pane pane-2">
+                        <h3 class="modal-box-title" style="text-align: center;">Datos de Entrega</h3>
+                        <p class="modal-box-subtitle" style="text-align: center; margin-bottom: 15px;">Completa los campos obligatorios</p>
+                        
+                        <div class="form-group">
+                            <label>Nombre Completo *</label>
+                            <input type="text" id="inputNombreCliente" class="input-luxury" placeholder="Ej: Maria Perez" oninput="validarCamposIdentidad()">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Dirección / Referencia Exacta *</label>
+                            <input type="text" id="inputDireccionCliente" class="input-luxury" placeholder="Calle, Barrio, Nro de casa" oninput="validarCamposIdentidad()">
+                        </div>
+
+                        <div class="qr-placeholder-frame">
+                            <i class="fa-solid fa-qrcode"></i>
+                        </div>
+                        <p style="font-size: 10px; text-align: center; color: var(--color-muted); margin-bottom: 15px;">
+                            El código QR de transferencia se adjuntará en su comprobante PDF.
+                        </p>
+
+                        <button class="btn-modal-action btn-modal-whatsapp" id="btnConfirmarWhatsApp" onclick="procesarTransaccionFinal()" disabled>
+                            <i class="fa-brands fa-whatsapp"></i> Confirmar por WhatsApp
+                        </button>
+                        
+                        <button style="background:none; border:none; color:#aaa; font-size:12px; cursor:pointer; width:100%; text-align:center;" onclick="desplazarAtrasPaso()">
+                            Volver a especificaciones
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    preloader.style.opacity = '0';
+    preloader.style.visibility = 'hidden';
+    document.body.classList.remove('loading');
+});
+
+function toggleMenuResponsive() {
+    document.getElementById('navbarLinks').classList.toggle('is-open');
+}
+
+let cantidadPedido = 1;
+
+function abrirConfiguracionPedido() {
+    document.getElementById('luxuryModalCheckout').classList.add('is-active');
+
+    document.querySelector('.pane-1').style.display='block';
+    document.querySelector('.pane-2').style.display='none';
+}
+
+function cerrarConfiguracionPedido() {
+    document.getElementById('luxuryModalCheckout').classList.remove('is-active');
+}
+
+function calcularPreciosDinamicos() {
+
+    const precio =
+        parseInt(
+            document.getElementById('selectVarianteProducto').value
+        );
+
+    document.getElementById('txtModalPrecioCalculado').innerText =
+        precio * cantidadPedido;
+}
+
+function modificarContador(cambio) {
+
+    cantidadPedido += cambio;
+
+    if(cantidadPedido < 1)
+        cantidadPedido = 1;
+
+    document.getElementById('lblContadorUnidades').innerText =
+        cantidadPedido;
+
+    calcularPreciosDinamicos();
+}
+
+function desplazarSiguientePaso(){
+
+    document.querySelector('.pane-1').style.display='none';
+    document.querySelector('.pane-2').style.display='block';
+}
+
+function desplazarAtrasPaso(){
+
+    document.querySelector('.pane-1').style.display='block';
+    document.querySelector('.pane-2').style.display='none';
+}
+
+function validarCamposIdentidad(){
+
+    const nombre =
+        document.getElementById('inputNombreCliente')
+        .value
+        .trim();
+
+    const direccion =
+        document.getElementById('inputDireccionCliente')
+        .value
+        .trim();
+
+    document.getElementById('btnConfirmarWhatsApp').disabled =
+        !(nombre.length > 2 && direccion.length > 4);
+}
+
+function procesarTransaccionFinal(){
+
+    const nombre =
+        document.getElementById('inputNombreCliente').value.trim();
+
+    const direccion =
+        document.getElementById('inputDireccionCliente').value.trim();
+
+    const selector =
+        document.getElementById('selectVarianteProducto');
+
+    const precio =
+        parseInt(selector.value);
+
+    const tamano =
+        selector.options[selector.selectedIndex].text;
+
+    const total =
+        precio * cantidadPedido;
+
+    const orden =
+        Math.floor(Math.random()*9000)+1000;
+
+    const { jsPDF } = window.jspdf;
+
+const doc = new jsPDF({
+    unit: 'mm',
+    format: [80, 175]
+});
+
+// ENCABEZADO
+doc.setFont("Helvetica", "bold");
+doc.setFontSize(14);
+doc.setTextColor(217, 139, 159);
+
+doc.text("ALGO DULCE", 40, 15, {
+    align: "center"
+});
+
+doc.setFont("Helvetica", "normal");
+doc.setFontSize(8);
+doc.setTextColor(100, 100, 100);
+
+doc.text("By Madian Gutierrez", 40, 20, {
+    align: "center"
+});
+
+doc.text("Santa Cruz - Bolivia", 40, 24, {
+    align: "center"
+});
+
+doc.setLineWidth(0.2);
+doc.setDrawColor(217, 139, 159);
+
+doc.line(5, 28, 75, 28);
+
+// FECHA Y HORA
+const fechaActual =
+new Date().toLocaleDateString();
+
+const horaActual =
+new Date().toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit'
+});
+
+// INFORMACIÓN GENERAL
+doc.setFont("Helvetica", "bold");
+
+doc.text(
+    `NOTA DE VENTA: #AD-${orden}`,
+    5,
+    34
+);
+
+doc.setFont("Helvetica", "normal");
+
+doc.text(
+    `Fecha: ${fechaActual}`,
+    5,
+    39
+);
+
+doc.text(
+    `Hora: ${horaActual}`,
+    5,
+    44
+);
+
+doc.text(
+    "Estado: Pendiente de Verificación",
+    5,
+    49
+);
+
+doc.line(5, 53, 75, 53);
+
+// CLIENTE
+doc.setFont("Helvetica", "bold");
+
+doc.text(
+    "DATOS DEL CLIENTE",
+    5,
+    59
+);
+
+doc.setFont("Helvetica", "normal");
+
+doc.text(
+    `Cliente: ${nombre}`,
+    5,
+    65
+);
+
+const direccionDividida =
+doc.splitTextToSize(
+    `Dirección: ${direccion}`,
+    70
+);
+
+doc.text(
+    direccionDividida,
+    5,
+    70
+);
+
+let lineaDivision2 =
+72 + (direccionDividida.length * 4);
+
+doc.line(
+    5,
+    lineaDivision2,
+    75,
+    lineaDivision2
+);
+
+// DETALLE
+let yDetalle =
+lineaDivision2 + 6;
+
+doc.setFont("Helvetica", "bold");
+
+doc.text(
+    "DETALLE DEL PEDIDO",
+    5,
+    yDetalle
+);
+
+doc.setFont("Helvetica", "normal");
+
+doc.text(
+    "Producto: Torta 4 Leches",
+    5,
+    yDetalle + 6
+);
+
+doc.text(
+    `Tamaño: ${tamano}`,
+    5,
+    yDetalle + 11
+);
+
+doc.text(
+    `Precio Unit.: ${precio} Bs`,
+    5,
+    yDetalle + 16
+);
+
+doc.text(
+    `Cantidad: ${cantidadPedido}`,
+    5,
+    yDetalle + 21
+);
+
+let lineaDivision3 =
+yDetalle + 25;
+
+doc.line(
+    5,
+    lineaDivision3,
+    75,
+    lineaDivision3
+);
+
+// TOTAL
+doc.setFont("Helvetica", "bold");
+doc.setFontSize(11);
+
+doc.text(
+    `TOTAL A PAGAR: ${total} Bs`,
+    5,
+    lineaDivision3 + 8
+);
+
+// MENSAJE FINAL
+doc.setFont("Helvetica", "italic");
+doc.setFontSize(7);
+
+doc.text(
+    "Presenta este comprobante en WhatsApp",
+    40,
+    lineaDivision3 + 19,
+    {
+        align: "center"
+    }
+);
+
+doc.text(
+    "para recibir tu QR oficial de pago.",
+    40,
+    lineaDivision3 + 23,
+    {
+        align: "center"
+    }
+);
+
+// DESCARGA
+doc.save(
+    `Factura_Algo_Dulce_${orden}.pdf`
+);
+
+    const mensaje =
+`Hola Madian.
+
+*NUEVO PEDIDO*
+
+*Orden:* AD-${orden}
+
+*Cliente:* ${nombre}
+
+*Direccion:* ${direccion}
+
+*Producto:* Torta 4 Leches
+
+*Tamaño:* ${tamano}
+
+*Cantidad:* ${cantidadPedido}
+
+*Total:* ${total} Bs
+
+Espero el QR para realizar la transferencia.`;
+
+    window.open(
+        `https://wa.me/59177802670?text=${encodeURIComponent(mensaje)}`,
+        '_blank'
+    );
+
+    cerrarConfiguracionPedido();
+}
+
+function desplazarCarrusel(direccion) {
+
+    const container =
+        document.getElementById('premiumCarousel');
+
+    const scrollAmount = 300;
+
+    if (direccion === 'izquierda')
+        container.scrollBy(-scrollAmount, 0);
+    else
+        container.scrollBy(scrollAmount, 0);
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+
+    document.querySelector('.pane-2').style.display='none';
+
+    calcularPreciosDinamicos();
+});
+
+// =====================================
+// RESEÑAS DINÁMICAS PREMIUM ALGO DULCE
+// =====================================
+
+const reseñasClientes = [
+
+{
+nombre:"Valentina Mercado",
+avatar:"VM",
+estrellas:5,
+comentario:"La pedí para el cumpleaños de mi hija y todos quedaron encantados con el sabor."
+},
+
+{
+nombre:"Rodrigo Peña",
+avatar:"RP",
+estrellas:4,
+comentario:"Me llegó hasta el Urubó antes de la hora acordada. Excelente servicio."
+},
+
+{
+nombre:"Karen Hurtado",
+avatar:"KH",
+estrellas:5,
+comentario:"La mejor torta 4 leches que he probado. Súper esponjosa y fresca."
+},
+
+{
+nombre:"Mauricio Serrate",
+avatar:"MS",
+estrellas:4,
+comentario:"Entrega puntual en Equipetrol. Muy recomendable."
+},
+
+{
+nombre:"Gabriela Vaca",
+avatar:"GV",
+estrellas:5,
+comentario:"La presentación fue hermosa y el sabor espectacular."
+},
+
+{
+nombre:"Leonardo Roca",
+avatar:"LR",
+estrellas:5,
+comentario:"Todos mis invitados preguntaron dónde la había comprado."
+},
+
+{
+nombre:"Daniela Salazar",
+avatar:"DS",
+estrellas:4,
+comentario:"Llegó perfectamente protegida y en excelente estado."
+},
+
+{
+nombre:"Esteban Cuéllar",
+avatar:"EC",
+estrellas:5,
+comentario:"La pedí para un aniversario y superó mis expectativas."
+},
+
+{
+nombre:"Paula Méndez",
+avatar:"PM",
+estrellas:5,
+comentario:"El merengue estaba delicioso y nada empalagoso."
+},
+
+{
+nombre:"Cristian Montero",
+avatar:"CM",
+estrellas:3,
+comentario:"Buena atención y entrega rápida. Todo llegó correctamente."
+},
+
+{
+nombre:"Natalia Suárez",
+avatar:"NS",
+estrellas:5,
+comentario:"La recibí en la Villa Primero de Mayo y llegó perfecta."
+},
+
+{
+nombre:"José Vargas",
+avatar:"JV",
+estrellas:4,
+comentario:"Excelente relación calidad-precio. Volveré a comprar."
+},
+
+{
+nombre:"Camila Antelo",
+avatar:"CA",
+estrellas:5,
+comentario:"Mis hijos quedaron fascinados. No sobró ni una porción."
+},
+
+{
+nombre:"Fernando Arias",
+avatar:"FA",
+estrellas:5,
+comentario:"La textura es increíblemente suave y húmeda."
+},
+
+{
+nombre:"Luciana Flores",
+avatar:"LF",
+estrellas:4,
+comentario:"Muy buena experiencia de compra por WhatsApp."
+},
+
+{
+nombre:"Miguel Justiniano",
+avatar:"MJ",
+estrellas:5,
+comentario:"Se nota la calidad de los ingredientes desde el primer bocado."
+},
+
+{
+nombre:"Sofía Velasco",
+avatar:"SV",
+estrellas:5,
+comentario:"Llegó hasta la zona Norte sin ningún inconveniente."
+},
+
+{
+nombre:"Andrés Barbery",
+avatar:"AB",
+estrellas:4,
+comentario:"Compré una para una reunión familiar y fue un éxito."
+},
+
+{
+nombre:"Carla Rocha",
+avatar:"CR",
+estrellas:5,
+comentario:"La mejor presentación que he visto en una torta artesanal."
+},
+
+{
+nombre:"Diego Prado",
+avatar:"DP",
+estrellas:5,
+comentario:"Definitivamente volveré a pedir para mi próximo evento."
+}
+
+];
+
+function generarEstrellas(cantidad){
+
+let html = '';
+
+for(let i=1;i<=5;i++){
+
+if(i<=cantidad){
+
+html += '<i class="fa-solid fa-star" style="color:#ffc107"></i>';
+
+}else{
+
+html += '<i class="fa-solid fa-star" style="color:#d1d1d1"></i>';
+
+}
+
+}
+
+return html;
+
+}
+
+function iniciarReseñasDinamicas(){
+
+const cards = document.querySelectorAll('.review-card');
+
+cards.forEach((card,index)=>{
+
+let posicion = index;
+
+const estrellas =
+card.querySelector('.review-stars');
+
+const avatar =
+card.querySelector('.review-avatar');
+
+const nombre =
+card.querySelector('.author-info h5');
+
+const comentario =
+card.querySelector('.review-text');
+
+function actualizar(){
+
+const datos = reseñasClientes[posicion];
+
+comentario.style.opacity = "0";
+
+setTimeout(()=>{
+
+estrellas.innerHTML =
+generarEstrellas(datos.estrellas);
+
+avatar.textContent =
+datos.avatar;
+
+nombre.textContent =
+datos.nombre;
+
+comentario.textContent =
+`"${datos.comentario}"`;
+
+comentario.style.opacity = "1";
+
+},400);
+
+posicion++;
+
+if(posicion >= reseñasClientes.length){
+
+posicion = 0;
+
+}
+
+}
+
+actualizar();
+
+setInterval(actualizar,4500);
+
+});
+
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+
+iniciarReseñasDinamicas();
+
+});
+    </script> 
+   
+</body>
+</html>

@@ -535,6 +535,41 @@
 
         .btn-buy:hover { background: var(--color-primary); color: #ffffff; box-shadow: 0 8px 20px rgba(217, 139, 159, 0.2); }
 
+                    /* ==========================================
+   NUEVOS BOTONES (CORRECCIÓN DE ANCHO DE PANTALLA)
+   ========================================== */
+
+.button-container {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.btn-see-more {
+    flex: 1;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    border-radius: 25px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    transition: all 0.3s var(--transition-smooth);
+}
+
+.btn-see-more:hover {
+    background: var(--color-primary);
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(217, 139, 159, 0.2);
+}
         /* ==========================================
            MODAL REINTERACTIVO CORREGIDO
            ========================================== */
